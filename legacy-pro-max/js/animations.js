@@ -84,10 +84,26 @@ document.addEventListener('DOMContentLoaded', () => {
 	//                               Initialization                               //
 	// -------------------------------------------------------------------------- //
 
+	const heroEntrances = () => {
+		if (isReducedMotion()) return;
+
+		const elements = document.querySelectorAll('[data-animation="hero-entrance"]');
+		elements.forEach(element => {
+			gsap.from(element, {
+				opacity: 0,
+				y: 50,
+				duration: 1,
+				ease: 'power4.out',
+				delay: 0.5,
+			});
+		});
+	};
+
 	const initAnimations = () => {
 		scrollTriggeredEntrances();
 		buttonHovers();
 		parallax();
+		heroEntrances();
 	};
 
 	initAnimations();

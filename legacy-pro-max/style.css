@@ -72,6 +72,111 @@ h4 {
 		transform var(--transition-duration) var(--transition-timing-function);
 }
 
+/*--------------------------------------------------------------
+## Layout
+--------------------------------------------------------------*/
+.site {
+	max-width: 1600px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: var(--spacing-lg);
+	padding-right: var(--spacing-lg);
+}
+
+.site-header {
+	padding: var(--spacing-lg) 0;
+}
+
+.site-header-inner {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.site-footer {
+	padding: var(--spacing-lg) 0;
+	border-top: 1px solid var(--color-border);
+}
+
+.site-footer-inner {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+/*--------------------------------------------------------------
+## Navigation
+--------------------------------------------------------------*/
+.main-navigation ul {
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding-left: 0;
+}
+
+.main-navigation li {
+	margin-left: var(--spacing-lg);
+}
+
+.main-navigation a {
+	color: var(--color-text);
+	text-decoration: none;
+	font-weight: var(--font-weight-bold);
+	position: relative;
+}
+
+.main-navigation a::after {
+	content: '';
+	position: absolute;
+	bottom: -5px;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background-color: var(--color-secondary);
+	transform: scaleX(0);
+	transition: transform 0.3s ease-in-out;
+}
+
+.main-navigation a:hover::after {
+	transform: scaleX(1);
+}
+
+.menu-toggle {
+	display: none;
+}
+
+@media (max-width: 768px) {
+	.menu-toggle {
+		display: block;
+	}
+
+	.main-navigation ul {
+		display: none;
+		flex-direction: column;
+		position: absolute;
+		top: 100px;
+		left: 0;
+		width: 100%;
+		background-color: var(--color-background);
+	}
+
+	.main-navigation ul.toggled-on {
+		display: flex;
+	}
+
+	.main-navigation li {
+		margin: 0;
+		text-align: center;
+	}
+}
+	text-decoration: none;
+	border-radius: 4px;
+	font-weight: var(--font-weight-bold);
+	display: inline-block;
+	transition: background-color var(--transition-duration) var(--transition-timing-function),
+		transform var(--transition-duration) var(--transition-timing-function);
+}
+
 
 /* -------------------------------------------------------------------------- */
 /*                                Accessibility                               */
@@ -157,6 +262,29 @@ h4 {
 /*                                   Blocks                                   */
 /* -------------------------------------------------------------------------- */
 
+/* Hero */
+.hero {
+	color: var(--color-background);
+	padding: var(--spacing-xl) 0;
+	text-align: center;
+}
+
+.hero__content {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.hero__headline {
+	font-size: var(--font-size-h1);
+	font-weight: var(--font-weight-bold);
+	margin-bottom: var(--spacing-md);
+}
+
+.hero__subheading {
+	font-size: var(--font-size-h3);
+	margin-bottom: var(--spacing-lg);
+}
+
 /* Practice Areas */
 .practice-areas-grid {
 	display: grid;
@@ -168,6 +296,12 @@ h4 {
 	border: 1px solid var(--color-border);
 	padding: var(--spacing-lg);
 	text-align: center;
+	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.practice-area-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .practice-area-title a {
@@ -181,6 +315,8 @@ h4 {
 	overflow: hidden;
 	width: 100%;
 	min-height: 200px;
+	padding: var(--spacing-lg);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .slides {
@@ -264,6 +400,12 @@ h4 {
 	margin-bottom: var(--spacing-lg);
 	border-left: 3px solid var(--color-secondary);
 	padding-left: var(--spacing-md);
+	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.case-result-item:hover {
+	transform: translateX(5px);
+	box-shadow: 5px 0px 15px rgba(0,0,0,0.1);
 }
 
 .case-result-title a {
@@ -280,6 +422,13 @@ h4 {
 
 .attorney-card {
 	text-align: center;
+	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+	padding: var(--spacing-lg);
+}
+
+.attorney-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .attorney-thumbnail img {

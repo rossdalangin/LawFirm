@@ -21,12 +21,15 @@ $background_style = 'color' === $background_type ?
 	'background-color: ' . esc_attr( $background_color ) . ';' :
 	'background-image: url(' . esc_url( $background_image ) . '); background-size: cover; background-position: center;';
 
+$wrapper_attributes = get_block_wrapper_attributes(
+	array(
+		'class' => 'hero',
+		'style' => $background_style,
+	)
+);
 ?>
-<section
-	<?php echo get_block_wrapper_attributes(); // phpcs:ignore ?>
-	style="<?php echo esc_attr( $background_style ); ?>"
->
-	<div class="hero__content">
+<section <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<div class="hero__content" data-animation="hero-entrance">
 		<?php if ( ! empty( $headline ) ) : ?>
 			<h1 class="hero__headline">
 				<?php echo wp_kses_post( $headline ); ?>

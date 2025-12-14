@@ -7,28 +7,26 @@ document.addEventListener('DOMContentLoaded', () => {
 		const nextButton = slider.querySelector('.next');
 		let currentSlide = 0;
 
+		gsap.set(slides, { opacity: 0, display: 'none' });
+		gsap.set(slides[0], { opacity: 1, display: 'block' });
+
 		const showSlide = (n) => {
-			slides.forEach((slide, index) => {
-				slide.classList.remove('active');
-				slide.setAttribute('aria-hidden', 'true');
-			});
-			slides[n].classList.add('active');
-			slides[n].setAttribute('aria-hidden', 'false');
+			gsap.to(slides[currentSlide], { opacity: 0, display: 'none', duration: 0.5 });
+			gsap.to(slides[n], { opacity: 1, display: 'block', duration: 0.5 });
+			currentSlide = n;
 		};
 
 		const nextSlide = () => {
-			currentSlide = (currentSlide + 1) % slides.length;
-			showSlide(currentSlide);
+			const next = (currentSlide + 1) % slides.length;
+			showSlide(next);
 		};
 
 		const prevSlide = () => {
-			currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-			showSlide(currentSlide);
+			const prev = (currentSlide - 1 + slides.length) % slides.length;
+			showSlide(prev);
 		};
 
 		if (slides.length > 0) {
-			showSlide(currentSlide);
-
 			nextButton.addEventListener('click', nextSlide);
 			prevButton.addEventListener('click', prevSlide);
 
