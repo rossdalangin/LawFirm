@@ -99,11 +99,33 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	};
 
+	const mobileMenu = () => {
+		const menuToggle = document.querySelector('.menu-toggle');
+		const closeButton = document.querySelector('.close-mobile-nav');
+		const overlay = document.querySelector('.mobile-nav-overlay');
+
+		if (!menuToggle || !closeButton || !overlay) return;
+
+		const tl = gsap.timeline({ paused: true });
+		tl.to(overlay, { display: 'block', opacity: 1, duration: 0.3 });
+
+		menuToggle.addEventListener('click', (e) => {
+			e.preventDefault();
+			tl.play();
+		});
+
+		closeButton.addEventListener('click', (e) => {
+			e.preventDefault();
+			tl.reverse();
+		});
+	};
+
 	const initAnimations = () => {
 		scrollTriggeredEntrances();
 		buttonHovers();
 		parallax();
 		heroEntrances();
+		mobileMenu();
 	};
 
 	initAnimations();

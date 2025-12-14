@@ -60,3 +60,17 @@
 		</div><!-- .site-header-inner -->
 	</header><!-- #masthead -->
 	<div id="content" class="site-content">
+
+	<div class="mobile-nav-overlay">
+		<a href="#" class="close-mobile-nav">&times;</a>
+		<nav class="mobile-navigation">
+			<?php
+			wp_nav_menu(
+				array(
+					'theme_location' => 'menu-1',
+					'menu_id'        => 'primary-menu-mobile',
+				)
+			);
+			?>
+		</nav>
+	</div>

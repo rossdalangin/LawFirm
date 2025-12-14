@@ -47,6 +47,9 @@
 		},
 		"backgroundImage": {
 			"type": "string"
+		},
+		"backgroundVideo": {
+			"type": "string"
 		}
 	},
 	"editorScript": "file:./index.js",

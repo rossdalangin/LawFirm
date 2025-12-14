@@ -1,6 +1,6 @@
 <?php
 /**
- * Hero Block Rende Template.
+ * Hero Block Render Template.
  *
  * @param array $attributes The block attributes.
  * @param string $content The block content.
@@ -16,10 +16,14 @@ $button_url         = isset( $attributes['buttonUrl'] ) ? $attributes['buttonUrl
 $background_type    = isset( $attributes['backgroundType'] ) ? $attributes['backgroundType'] : 'color';
 $background_color   = isset( $attributes['backgroundColor'] ) ? $attributes['backgroundColor'] : 'var(--color-primary)';
 $background_image   = isset( $attributes['backgroundImage'] ) ? $attributes['backgroundImage'] : '';
+$background_video   = isset( $attributes['backgroundVideo'] ) ? $attributes['backgroundVideo'] : '';
 
-$background_style = 'color' === $background_type ?
-	'background-color: ' . esc_attr( $background_color ) . ';' :
-	'background-image: url(' . esc_url( $background_image ) . '); background-size: cover; background-position: center;';
+$background_style = '';
+if ( 'color' === $background_type ) {
+	$background_style = 'background-color: ' . esc_attr( $background_color ) . ';';
+} elseif ( 'image' === $background_type ) {
+	$background_style = 'background-image: url(' . esc_url( $background_image ) . '); background-size: cover; background-position: center;';
+}
 
 $wrapper_attributes = get_block_wrapper_attributes(
 	array(
@@ -29,6 +33,10 @@ $wrapper_attributes = get_block_wrapper_attributes(
 );
 ?>
 <section <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	<?php if ( 'video' === $background_type && ! empty( $background_video ) ) : ?>
+		<video class="hero__background-video" src="<?php echo esc_url( $background_video ); ?>" autoplay muted loop playsinline></video>
+		<div class="hero__video-overlay"></div>
+	<?php endif; ?>
 	<div class="hero__content" data-animation="hero-entrance">
 		<?php if ( ! empty( $headline ) ) : ?>
 			<h1 class="hero__headline">

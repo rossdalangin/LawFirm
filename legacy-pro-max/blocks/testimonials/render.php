@@ -17,11 +17,12 @@ $args = array(
 );
 
 $testimonials = new WP_Query( $args );
+$slider_id    = 'slides-' . uniqid();
 ?>
 <div <?php echo get_block_wrapper_attributes(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<?php if ( $testimonials->have_posts() ) : ?>
 		<div class="testimonials-slider" role="region" aria-label="Testimonials">
-			<div class="slides">
+			<div class="slides" id="<?php echo esc_attr( $slider_id ); ?>">
 				<?php
 				while ( $testimonials->have_posts() ) :
 					$testimonials->the_post();
@@ -32,8 +33,8 @@ $testimonials = new WP_Query( $args );
 					</div>
 				<?php endwhile; ?>
 			</div>
-			<button class="prev" aria-label="Previous Slide">&lt;</button>
-			<button class="next" aria-label="Next Slide">&gt;</button>
+			<button class="prev" aria-label="Previous Slide" aria-controls="<?php echo esc_attr( $slider_id ); ?>">&lt;</button>
+			<button class="next" aria-label="Next Slide" aria-controls="<?php echo esc_attr( $slider_id ); ?>">&gt;</button>
 		</div>
 		<?php wp_reset_postdata(); ?>
 	<?php else : ?>
