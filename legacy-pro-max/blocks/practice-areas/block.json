@@ -1,0 +1,24 @@
+{
+	"name": "legacy-pro-max/practice-areas",
+	"title": "Practice Areas",
+	"category": "legacy-pro-max-blocks",
+	"icon": "book-alt",
+	"description": "Displays a list of practice areas.",
+	"keywords": [
+		"practice",
+		"areas",
+		"law"
+	],
+	"supports": {
+		"align": [
+			"full"
+		]
+	},
+	"attributes": {
+		"align": {
+			"type": "string",
+			"default": "full"
+		}
+	},
+	"render": "file:./render.php"
+}

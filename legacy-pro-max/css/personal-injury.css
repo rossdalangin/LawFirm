@@ -1,0 +1,11 @@
+/* -------------------------------------------------------------------------- */
+/*                               Personal Injury                              */
+/* -------------------------------------------------------------------------- */
+
+:root {
+	--color-primary: #b71c1c; /* Dark Red */
+	--color-secondary: #ffcdd2; /* Light Red */
+	--color-accent: #ffeb3b; /* Yellow */
+	--font-family-primary: 'Oswald', sans-serif;
+	--font-family-secondary: 'Lato', sans-serif;
+}

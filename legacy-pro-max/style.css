@@ -1,0 +1,295 @@
+/*
+Theme Name: Legacy Pro Max
+Theme URI: https://example.com/legacy-pro-max
+Author: Legacy Pro Max
+Author URI: https://example.com/legacy-pro-max
+Description: Where Legal Excellence Meets Digital Sophistication. A premium WordPress theme for modern law firms.
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: law-firm, legal, attorney, minimalist, premium, conversion, accessible
+Text Domain: legacy-pro-max
+*/
+
+/* -------------------------------------------------------------------------- */
+/*                                 Base Styles                                */
+/* -------------------------------------------------------------------------- */
+body {
+	background-color: var(--color-background);
+	color: var(--color-text);
+	font-family: var(--font-family-secondary);
+	font-size: var(--font-size-base);
+	line-height: 1.6;
+}
+
+a {
+	color: var(--color-secondary);
+	text-decoration: none;
+	transition: color var(--transition-duration) var(--transition-timing-function);
+}
+
+a:hover {
+	color: var(--color-accent);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-family-primary);
+	font-weight: var(--font-weight-bold);
+	line-height: 1.2;
+	margin-bottom: var(--spacing-md);
+}
+
+h1 {
+	font-size: var(--font-size-h1);
+}
+
+h2 {
+	font-size: var(--font-size-h2);
+}
+
+h3 {
+	font-size: var(--font-size-h3);
+}
+
+h4 {
+	font-size: var(--font-size-h4);
+}
+
+.btn {
+	background-color: var(--color-secondary);
+	color: var(--color-primary);
+	padding: var(--spacing-sm) var(--spacing-lg);
+	text-decoration: none;
+	border-radius: 4px;
+	font-weight: var(--font-weight-bold);
+	display: inline-block;
+	transition: background-color var(--transition-duration) var(--transition-timing-function),
+		transform var(--transition-duration) var(--transition-timing-function);
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                                Accessibility                               */
+/* -------------------------------------------------------------------------- */
+
+/* Text meant only for screen readers. */
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+.screen-reader-text:focus {
+	background-color: #eee;
+	clip: auto !important;
+	clip-path: none;
+	color: #444;
+	display: block;
+	font-size: 1em;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000;
+	/* Above WP toolbar. */
+}
+
+
+/* -------------------------------------------------------------------------- */
+/*                               Exit-Intent Modal                              */
+/* -------------------------------------------------------------------------- */
+.exit-intent-modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+	background-color: var(--color-background);
+	margin: 15% auto;
+	padding: var(--spacing-lg);
+	border: 1px solid var(--color-border);
+	width: 80%;
+	max-width: 500px;
+	position: relative;
+	text-align: center;
+}
+
+.close-modal {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	position: absolute;
+	top: var(--spacing-sm);
+	right: var(--spacing-md);
+}
+
+.close-modal:hover,
+.close-modal:focus {
+	color: var(--color-text);
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   Blocks                                   */
+/* -------------------------------------------------------------------------- */
+
+/* Practice Areas */
+.practice-areas-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: var(--spacing-lg);
+}
+
+.practice-area-card {
+	border: 1px solid var(--color-border);
+	padding: var(--spacing-lg);
+	text-align: center;
+}
+
+.practice-area-title a {
+	text-decoration: none;
+	color: var(--color-primary);
+}
+
+/* Testimonials */
+.testimonials-slider {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	min-height: 200px;
+}
+
+.slides {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.testimonial-slide {
+	display: none;
+	width: 100%;
+	padding: 0 40px; /* Space for buttons */
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+	visibility: hidden;
+}
+
+.testimonial-slide.active {
+	display: block;
+	opacity: 1;
+	visibility: visible;
+}
+
+.testimonial-content {
+	font-style: italic;
+	font-size: 1.2em;
+}
+
+.testimonial-author {
+	display: block;
+	margin-top: var(--spacing-md);
+	font-weight: var(--font-weight-bold);
+}
+
+.prev,
+.next {
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: auto;
+	padding: 16px;
+	margin-top: -22px;
+	color: var(--color-primary);
+	font-weight: bold;
+	font-size: 18px;
+	transition: 0.6s ease;
+	border-radius: 0 3px 3px 0;
+	user-select: none;
+	background-color: rgba(255, 255, 255, 0.5);
+	border: none;
+}
+
+.next {
+	right: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+	color: var(--color-background);
+}
+
+.testimonial-slide.active {
+	opacity: 1;
+}
+
+.testimonial-content {
+	font-style: italic;
+	font-size: 1.2em;
+}
+
+.testimonial-author {
+	display: block;
+	margin-top: var(--spacing-md);
+	font-weight: var(--font-weight-bold);
+}
+
+/* Case Results */
+.case-result-item {
+	margin-bottom: var(--spacing-lg);
+	border-left: 3px solid var(--color-secondary);
+	padding-left: var(--spacing-md);
+}
+
+.case-result-title a {
+	text-decoration: none;
+	color: var(--color-primary);
+}
+
+/* Attorneys */
+.attorneys-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: var(--spacing-lg);
+}
+
+.attorney-card {
+	text-align: center;
+}
+
+.attorney-thumbnail img {
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+}
+
+.attorney-title a {
+	text-decoration: none;
+	color: var(--color-primary);
+}

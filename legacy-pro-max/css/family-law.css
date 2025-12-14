@@ -1,0 +1,11 @@
+/* -------------------------------------------------------------------------- */
+/*                                  Family Law                                  */
+/* -------------------------------------------------------------------------- */
+
+:root {
+	--color-primary: #4a148c; /* Purple */
+	--color-secondary: #e1bee7; /* Light Purple */
+	--color-accent: #76ff03; /* Light Green */
+	--font-family-primary: 'Playfair Display', serif;
+	--font-family-secondary: 'Raleway', sans-serif;
+}

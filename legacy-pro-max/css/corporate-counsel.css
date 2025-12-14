@@ -1,0 +1,11 @@
+/* -------------------------------------------------------------------------- */
+/*                              Corporate Counsel                             */
+/* -------------------------------------------------------------------------- */
+
+:root {
+	--color-primary: #1b5e20; /* Dark Green */
+	--color-secondary: #c8e6c9; /* Light Green */
+	--color-accent: #4e342e; /* Brown */
+	--font-family-primary: 'Lora', serif;
+	--font-family-secondary: 'Montserrat', sans-serif;
+}

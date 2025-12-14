@@ -1,0 +1,11 @@
+/* -------------------------------------------------------------------------- */
+/*                                 IP / Tech Law                                */
+/* -------------------------------------------------------------------------- */
+
+:root {
+	--color-primary: #01579b; /* Light Blue */
+	--color-secondary: #b3e5fc; /* Lighter Blue */
+	--color-accent: #ff6f00; /* Orange */
+	--font-family-primary: 'Roboto Mono', monospace;
+	--font-family-secondary: 'Roboto', sans-serif;
+}

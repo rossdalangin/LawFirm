@@ -1,0 +1,24 @@
+{
+	"name": "legacy-pro-max/testimonials",
+	"title": "Testimonials",
+	"category": "legacy-pro-max-blocks",
+	"icon": "format-quote",
+	"description": "Displays a list of testimonials.",
+	"keywords": [
+		"testimonials",
+		"reviews",
+		"quotes"
+	],
+	"supports": {
+		"align": [
+			"full"
+		]
+	},
+	"attributes": {
+		"align": {
+			"type": "string",
+			"default": "full"
+		}
+	},
+	"render": "file:./render.php"
+}

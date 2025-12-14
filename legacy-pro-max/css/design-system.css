@@ -1,0 +1,73 @@
+:root {
+	/* -------------------------------------------------------------------------- */
+	/*                                   Colors                                   */
+	/* -------------------------------------------------------------------------- */
+
+	--color-primary: #0a2b4b;
+	--color-secondary: #d4a05d;
+	--color-accent: #b8860b;
+	--color-text: #333333;
+	--color-background: #ffffff;
+	--color-border: #e0e0e0;
+
+	/* Dark Mode Colors */
+	--color-primary-dark: #ffffff;
+	--color-secondary-dark: #d4a05d;
+	--color-accent-dark: #b8860b;
+	--color-text-dark: #f0f0f0;
+	--color-background-dark: #121212;
+	--color-border-dark: #333333;
+
+
+	/* -------------------------------------------------------------------------- */
+	/*                                 Typography                                 */
+	/* -------------------------------------------------------------------------- */
+
+	--font-family-primary: 'Merriweather', serif;
+	--font-family-secondary: 'Lato', sans-serif;
+
+	--font-weight-light: 300;
+	--font-weight-regular: 400;
+	--font-weight-bold: 700;
+
+	--font-size-base: 16px;
+	--font-size-h1: clamp(2.5rem, 6vw, 4rem);
+	--font-size-h2: clamp(2rem, 5vw, 3rem);
+	--font-size-h3: clamp(1.75rem, 4vw, 2.5rem);
+	--font-size-h4: clamp(1.5rem, 3vw, 2rem);
+	--font-size-body: clamp(1rem, 2.5vw, 1.125rem);
+
+
+	/* -------------------------------------------------------------------------- */
+	/*                                   Spacing                                  */
+	/* -------------------------------------------------------------------------- */
+
+	--spacing-xs: 0.25rem;
+	--spacing-sm: 0.5rem;
+	--spacing-md: 1rem;
+	--spacing-lg: 2rem;
+	--spacing-xl: 4rem;
+
+
+	/* -------------------------------------------------------------------------- */
+	/*                                   Motion                                   */
+	/* -------------------------------------------------------------------------- */
+
+	--transition-duration: 0.3s;
+	--transition-timing-function: ease-in-out;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                  Dark Mode                                 */
+/* -------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-primary: var(--color-primary-dark);
+		--color-secondary: var(--color-secondary-dark);
+		--color-accent: var(--color-accent-dark);
+		--color-text: var(--color-text-dark);
+		--color-background: var(--color-background-dark);
+		--color-border: var(--color-border-dark);
+	}
+}

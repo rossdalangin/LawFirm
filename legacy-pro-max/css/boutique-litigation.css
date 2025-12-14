@@ -1,0 +1,11 @@
+/* -------------------------------------------------------------------------- */
+/*                           Boutique Litigation                          */
+/* -------------------------------------------------------------------------- */
+
+:root {
+	--color-primary: #1a237e; /* Deep Indigo */
+	--color-secondary: #c5cae9; /* Light Indigo */
+	--color-accent: #ffab40; /* Amber */
+	--font-family-primary: 'EB Garamond', serif;
+	--font-family-secondary: 'Roboto Condensed', sans-serif;
+}

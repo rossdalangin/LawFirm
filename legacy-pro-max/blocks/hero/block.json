@@ -1,0 +1,56 @@
+{
+	"name": "legacy-pro-max/hero",
+	"title": "Hero",
+	"category": "legacy-pro-max-blocks",
+	"icon": "superhero",
+	"description": "A conversion-focused hero section with a headline, subheading, and call-to-action.",
+	"keywords": [
+		"hero",
+		"header",
+		"banner"
+	],
+	"supports": {
+		"align": [
+			"full"
+		]
+	},
+	"attributes": {
+		"align": {
+			"type": "string",
+			"default": "full"
+		},
+		"headline": {
+			"type": "string",
+			"source": "html",
+			"selector": "h1"
+		},
+		"subheading": {
+			"type": "string",
+			"source": "html",
+			"selector": "p"
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Request a Consultation"
+		},
+		"buttonUrl": {
+			"type": "string",
+			"default": "#"
+		},
+		"backgroundType": {
+			"type": "string",
+			"default": "color"
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": "var(--color-primary)"
+		},
+		"backgroundImage": {
+			"type": "string"
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"render": "file:./render.php"
+}

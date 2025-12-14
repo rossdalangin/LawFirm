@@ -1,0 +1,11 @@
+/* -------------------------------------------------------------------------- */
+/*                               Criminal Defense                             */
+/* -------------------------------------------------------------------------- */
+
+:root {
+	--color-primary: #212121; /* Almost Black */
+	--color-secondary: #bdbdbd; /* Gray */
+	--color-accent: #f44336; /* Red */
+	--font-family-primary: 'Bitter', serif;
+	--font-family-secondary: 'Open Sans', sans-serif;
+}
