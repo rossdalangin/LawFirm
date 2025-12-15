@@ -25,7 +25,7 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'legacy-pro-max' ); ?></a>
 
-	<header id="masthead" class="site-header">
+<header id="masthead" class="site-header<?php if (get_theme_mod('legacy_pro_max_header_sticky')) echo ' is-sticky'; ?>">
 		<div class="site-header-inner">
 			<div class="site-branding">
 				<?php

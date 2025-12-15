@@ -2,10 +2,10 @@
 /**
  * The front page template file for Legacy Pro Max.
  *
- * This template displays the content of the page designated as the "Front Page"
- * in the WordPress Reading Settings. It uses the standard WordPress loop to
- * render content from the Block Editor, allowing for a flexible, user-editable
- * homepage.
+ * This template is the cornerstone of the theme's Customizer-driven architecture.
+ * It builds the homepage by looping through a defined set of sections and loading
+ * the corresponding template part for each one, if that section is enabled in
+ * the Customizer.
  *
  * @package Legacy_Pro_Max
  */
@@ -15,14 +15,25 @@ get_header(); ?>
 <main id="primary" class="site-main">
 
     <?php
-    // Start the WordPress loop.
-    while ( have_posts() ) :
-        the_post();
+    $homepage_sections = array(
+        'hero',
+        'practice-areas',
+        'attorneys',
+        'case-results',
+        'testimonials',
+        'cta',
+        'contact',
+    );
 
-        // Display the page content from the Block Editor.
-        the_content();
+    foreach ( $homepage_sections as $section ) {
+        // Construct the theme mod setting name for visibility
+        $show_section_mod = 'legacy_pro_max_' . str_replace( '-', '_', $section ) . '_show';
 
-    endwhile; // End of the loop.
+        // Check if the section is enabled in the Customizer (default is true)
+        if ( get_theme_mod( $show_section_mod, true ) ) {
+            get_template_part( 'template-parts/section', $section );
+        }
+    }
     ?>
 
 </main><!-- #main -->
