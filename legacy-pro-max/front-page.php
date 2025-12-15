@@ -1,27 +1,30 @@
 <?php
 /**
- * The front page template file
+ * The front page template file for Legacy Pro Max.
  *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * This template displays the content of the page designated as the "Front Page"
+ * in the WordPress Reading Settings. It uses the standard WordPress loop to
+ * render content from the Block Editor, allowing for a flexible, user-editable
+ * homepage.
  *
  * @package Legacy_Pro_Max
  */
 
-get_header();
-?>
+get_header(); ?>
 
-	<main id="primary" class="site-main">
+<main id="primary" class="site-main">
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
+    <?php
+    // Start the WordPress loop.
+    while ( have_posts() ) :
+        the_post();
 
-			the_content();
+        // Display the page content from the Block Editor.
+        the_content();
 
-		endwhile; // End of the loop.
-		?>
+    endwhile; // End of the loop.
+    ?>
 
-	</main><!-- #main -->
+</main><!-- #main -->
 
-<?php
-get_footer();
+<?php get_footer();
