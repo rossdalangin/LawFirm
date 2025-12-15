@@ -64,10 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	const parallax = () => {
 		if (isReducedMotion() || window.innerWidth < 1024) return;
 
-		gsap.utils.toArray('[data-parallax]').forEach(section => {
-			const image = section.querySelector('img');
-			gsap.to(image, {
-				yPercent: 20,
+		gsap.utils.toArray('[data-parallax="true"]').forEach(section => {
+			gsap.to(section, {
+				backgroundPosition: 'center 20%',
 				ease: 'none',
 				scrollTrigger: {
 					trigger: section,

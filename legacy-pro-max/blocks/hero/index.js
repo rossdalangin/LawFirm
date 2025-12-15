@@ -6,10 +6,11 @@ import { registerBlockType } from '@wordpress/blocks';
 import {
 	useBlockProps,
 	RichText,
-	URLInput,
+	BlockControls,
 	InspectorControls,
 	MediaUpload,
 	MediaUploadCheck,
+	URLInput,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import {
@@ -17,10 +18,16 @@ import {
 	PanelBody,
 	SelectControl,
 	ColorPalette,
+	Dashicon,
+	ToolbarGroup,
+	ToolbarButton,
+	Popover,
 } from '@wordpress/components';
+import { useState } from '@wordpress/element';
+import { link } from '@wordpress/icons';
 
 registerBlockType( 'legacy-pro-max/hero', {
-	edit: ( { attributes, setAttributes } ) => {
+	edit: ( { attributes, setAttributes, isSelected } ) => {
 		const {
 			headline,
 			subheading,
@@ -31,6 +38,8 @@ registerBlockType( 'legacy-pro-max/hero', {
 			backgroundImage,
 			backgroundVideo,
 		} = attributes;
+
+		const [ isLinkPickerVisible, setIsLinkPickerVisible ] = useState( false );
 
 		const onSelectImage = ( media ) => {
 			setAttributes( { backgroundImage: media.url } );
@@ -55,6 +64,15 @@ registerBlockType( 'legacy-pro-max/hero', {
 
 		return (
 			<>
+				<BlockControls>
+					<ToolbarGroup>
+						<ToolbarButton
+							icon={ link }
+							title={ __( 'Link', 'legacy-pro-max' ) }
+							onClick={ () => setIsLinkPickerVisible( true ) }
+						/>
+					</ToolbarGroup>
+				</BlockControls>
 				<InspectorControls>
 					<PanelBody
 						title={ __( 'Background Settings', 'legacy-pro-max' ) }
@@ -134,15 +152,29 @@ registerBlockType( 'legacy-pro-max/hero', {
 					</PanelBody>
 				</InspectorControls>
 				<div { ...blockProps }>
-					{ backgroundType === 'video' && backgroundVideo && (
-						<video
-							className="hero__background-video"
-							src={ backgroundVideo }
-							autoPlay
-							muted
-							loop
-							playsInline
-						/>
+					{ isLinkPickerVisible && isSelected && (
+						<Popover
+							position="bottom center"
+							onClose={ () => setIsLinkPickerVisible( false ) }
+						>
+							<URLInput
+								value={ buttonUrl }
+								onChange={ ( newButtonUrl ) =>
+									setAttributes( { buttonUrl: newButtonUrl } )
+								}
+							/>
+						</Popover>
+					) }
+					{ backgroundType === 'video' && (
+						<div className="hero-video-placeholder">
+							<Dashicon icon="format-video" />
+							<p>
+								{ __(
+									'Video background is active. Preview on the front-end.',
+									'legacy-pro-max'
+								) }
+							</p>
+						</div>
 					) }
 					<div className="hero__content">
 						<RichText
@@ -184,12 +216,6 @@ registerBlockType( 'legacy-pro-max/hero', {
 									} )
 								}
 								allowedFormats={ [] }
-							/>
-							<URLInput
-								value={ buttonUrl }
-								onChange={ ( newButtonUrl ) =>
-									setAttributes( { buttonUrl: newButtonUrl } )
-								}
 							/>
 						</div>
 					</div>

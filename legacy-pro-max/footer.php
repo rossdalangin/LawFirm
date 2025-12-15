@@ -14,11 +14,9 @@
 	<footer id="colophon" class="site-footer">
 		<div class="site-footer-inner">
 			<div class="site-info">
-				&copy; <?php echo date( 'Y' ); ?> <?php bloginfo( 'name' ); ?>
-				<span class="sep"> | </span>
 				<?php
-				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'legacy-pro-max' ), 'Legacy Pro Max', '<a href="https://example.com/legacy-pro-max">Legacy Pro Max</a>' );
+				$copyright_text = get_theme_mod( 'legacy_pro_max_copyright_text', __( '&copy; ' . date( 'Y' ) . ' Legacy Pro Max. All Rights Reserved.', 'legacy-pro-max' ) );
+				echo wp_kses_post( $copyright_text );
 				?>
 			</div><!-- .site-info -->
 
