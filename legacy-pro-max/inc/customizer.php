@@ -251,6 +251,7 @@ function legacy_pro_max_dynamic_css() {
 
     wp_add_inline_style( 'legacy-pro-max-style', $css );
 }
+add_action( 'wp_enqueue_scripts', 'legacy_pro_max_dynamic_css' );
 
 function legacy_pro_max_generate_background_css($selector, $prefix) {
     $css = '';
@@ -311,8 +312,6 @@ function legacy_pro_max_generate_typography_css($selector, $prefix, &$fonts_to_l
 
     return $css;
 }
-
-add_action( 'wp_enqueue_scripts', 'legacy_pro_max_dynamic_css' );
 
 function legacy_pro_max_customize_preview_js() {
 	wp_enqueue_script( 'legacy-pro-max-customizer-preview', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview', 'jquery' ), null, true );
