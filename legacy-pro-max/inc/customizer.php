@@ -252,29 +252,6 @@ function legacy_pro_max_dynamic_css() {
     wp_add_inline_style( 'legacy-pro-max-style', $css );
 }
 
-function legacy_pro_max_generate_typography_css($selector, $prefix, &$fonts_to_load) {
-    $css = '';
-    $font_family = get_theme_mod("{$prefix}_font_family", 'helvetica-neue');
-    $font_size = get_theme_mod("{$prefix}_font_size", '16px');
-    $font_weight = get_theme_mod("{$prefix}_font_weight", '400');
-    $color = get_theme_mod("{$prefix}_color", '#333333');
-
-    $css .= "{$selector} {";
-    $css .= "font-family: '{$font_family}', sans-serif;";
-    $css .= "font-size: {$font_size};";
-    $css .= "font-weight: {$font_weight};";
-    $css .= "color: {$color};";
-    $css .= '}';
-
-    if ( !in_array($font_family, ['helvetica-neue', 'arial', 'verdana', 'georgia', 'times-new-roman']) ) {
-         $fonts_to_load[] = $font_family . ':' . $font_weight;
-    }
-
-    return $css;
-}
-
-add_action( 'wp_enqueue_scripts', 'legacy_pro_max_dynamic_css' );
-
 function legacy_pro_max_generate_background_css($selector, $prefix) {
     $css = '';
     $bg_type = get_theme_mod("{$prefix}_background_type", 'color');
@@ -313,6 +290,29 @@ function legacy_pro_max_generate_spacing_css($selector, $prefix) {
     $css .= '}';
     return $css;
 }
+
+function legacy_pro_max_generate_typography_css($selector, $prefix, &$fonts_to_load) {
+    $css = '';
+    $font_family = get_theme_mod("{$prefix}_font_family", 'helvetica-neue');
+    $font_size = get_theme_mod("{$prefix}_font_size", '16px');
+    $font_weight = get_theme_mod("{$prefix}_font_weight", '400');
+    $color = get_theme_mod("{$prefix}_color", '#333333');
+
+    $css .= "{$selector} {";
+    $css .= "font-family: '{$font_family}', sans-serif;";
+    $css .= "font-size: {$font_size};";
+    $css .= "font-weight: {$font_weight};";
+    $css .= "color: {$color};";
+    $css .= '}';
+
+    if ( !in_array($font_family, ['helvetica-neue', 'arial', 'verdana', 'georgia', 'times-new-roman']) ) {
+         $fonts_to_load[] = $font_family . ':' . $font_weight;
+    }
+
+    return $css;
+}
+
+add_action( 'wp_enqueue_scripts', 'legacy_pro_max_dynamic_css' );
 
 function legacy_pro_max_customize_preview_js() {
 	wp_enqueue_script( 'legacy-pro-max-customizer-preview', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview', 'jquery' ), null, true );
