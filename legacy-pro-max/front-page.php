@@ -15,17 +15,10 @@ get_header(); ?>
 <main id="primary" class="site-main">
 
     <?php
-    $homepage_sections = array(
-        'hero',
-        'practice-areas',
-        'attorneys',
-        'case-results',
-        'testimonials',
-        'cta',
-        'contact',
-    );
+    $order_string = get_theme_mod('legacy_pro_max_section_order', 'hero,practice-areas,attorneys,case-results,testimonials,cta,contact');
+    $homepage_sections = array_map('trim', explode(',', $order_string));
 
-    foreach ( $homepage_sections as $section ) {
+    foreach ( (array) $homepage_sections as $section ) {
         // Construct the theme mod setting name for visibility
         $show_section_mod = 'legacy_pro_max_' . str_replace( '-', '_', $section ) . '_show';
 

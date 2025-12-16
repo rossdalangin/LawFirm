@@ -4,10 +4,18 @@
  *
  * @package Legacy_Pro_Max
  */
-
+$footer_background_type = get_theme_mod('legacy_pro_max_footer_background_type', 'color');
+$footer_background_video = get_theme_mod('legacy_pro_max_footer_background_video', '');
 ?>
 	</div><!-- #content -->
 	<footer id="colophon" class="site-footer">
+        <?php if ($footer_background_type === 'video' && !empty($footer_background_video)) : ?>
+        <div class="background-video-wrapper">
+            <video playsinline autoplay muted loop poster="">
+                <source src="<?php echo esc_url($footer_background_video); ?>" type="video/mp4">
+            </video>
+        </div>
+    <?php endif; ?>
 		<div class="site-footer-inner">
             <div class="footer-widgets columns-<?php echo esc_attr(get_theme_mod('legacy_pro_max_footer_columns', 4)); ?>">
                 <?php if (is_active_sidebar('footer-1')) : ?>

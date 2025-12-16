@@ -1,9 +1,24 @@
 <?php
-$title = get_theme_mod('legacy_pro_max_practice_areas_title', 'Our Practice Areas');
-$columns = get_theme_mod('legacy_pro_max_practice_areas_columns', 3);
+$section_slug = 'practice_areas';
+$section_id = 'legacy_pro_max_' . $section_slug;
+
+// Content Settings
+$title = get_theme_mod($section_id . '_headline', 'Our Practice Areas');
+$columns = get_theme_mod($section_id . '_columns', 3);
 $query = new WP_Query(array('post_type' => 'practice-area', 'posts_per_page' => $columns));
+
+// Background Settings
+$background_type = get_theme_mod($section_id . '_background_type', 'color');
+$background_video = get_theme_mod($section_id . '_background_video', '');
 ?>
-<section id="practice-areas" class="homepage-section homepage-section--practice-areas">
+<section id="<?php echo esc_attr(str_replace('_', '-', $section_slug)); ?>" class="homepage-section homepage-section--<?php echo esc_attr(str_replace('_', '-', $section_slug)); ?>">
+    <?php if ($background_type === 'video' && !empty($background_video)) : ?>
+        <div class="background-video-wrapper">
+            <video playsinline autoplay muted loop poster="">
+                <source src="<?php echo esc_url($background_video); ?>" type="video/mp4">
+            </video>
+        </div>
+    <?php endif; ?>
     <div class="container">
         <h2><?php echo esc_html($title); ?></h2>
         <div class="practice-areas-grid columns-<?php echo esc_attr($columns); ?>">

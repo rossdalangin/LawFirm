@@ -8,7 +8,8 @@
  *
  * @package Legacy_Pro_Max
  */
-
+$header_background_type = get_theme_mod('legacy_pro_max_header_background_type', 'color');
+$header_background_video = get_theme_mod('legacy_pro_max_header_background_video', '');
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -26,6 +27,13 @@
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'legacy-pro-max' ); ?></a>
 
 <header id="masthead" class="site-header<?php if (get_theme_mod('legacy_pro_max_header_sticky')) echo ' is-sticky'; ?>">
+        <?php if ($header_background_type === 'video' && !empty($header_background_video)) : ?>
+        <div class="background-video-wrapper">
+            <video playsinline autoplay muted loop poster="">
+                <source src="<?php echo esc_url($header_background_video); ?>" type="video/mp4">
+            </video>
+        </div>
+    <?php endif; ?>
 		<div class="site-header-inner">
 			<div class="site-branding">
 				<?php

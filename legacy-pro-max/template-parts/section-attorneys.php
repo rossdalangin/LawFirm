@@ -1,9 +1,24 @@
 <?php
-$title = get_theme_mod('legacy_pro_max_attorneys_title', 'Our Attorneys');
-$columns = get_theme_mod('legacy_pro_max_attorneys_columns', 3);
+$section_slug = 'attorneys';
+$section_id = 'legacy_pro_max_' . $section_slug;
+
+// Content Settings
+$title = get_theme_mod($section_id . '_headline', 'Our Attorneys');
+$columns = get_theme_mod($section_id . '_columns', 3);
 $query = new WP_Query(array('post_type' => 'attorney', 'posts_per_page' => $columns));
+
+// Background Settings
+$background_type = get_theme_mod($section_id . '_background_type', 'color');
+$background_video = get_theme_mod($section_id . '_background_video', '');
 ?>
-<section id="attorneys" class="homepage-section homepage-section--attorneys">
+<section id="<?php echo esc_attr($section_slug); ?>" class="homepage-section homepage-section--<?php echo esc_attr($section_slug); ?>">
+    <?php if ($background_type === 'video' && !empty($background_video)) : ?>
+        <div class="background-video-wrapper">
+            <video playsinline autoplay muted loop poster="">
+                <source src="<?php echo esc_url($background_video); ?>" type="video/mp4">
+            </video>
+        </div>
+    <?php endif; ?>
     <div class="container">
         <h2><?php echo esc_html($title); ?></h2>
         <div class="attorneys-grid columns-<?php echo esc_attr($columns); ?>">
