@@ -205,9 +205,6 @@ function legacy_pro_max_dynamic_css() {
     $css = '';
     $google_fonts_to_load = [];
 
-    // This function can't be a nested helper function if it's going to be reused cleanly.
-    // Let's move it outside and pass the fonts array by reference.
-
     // Header
     $css .= legacy_pro_max_generate_background_css('.site-header', 'legacy_pro_max_header');
     $css .= legacy_pro_max_generate_spacing_css('.site-header', 'legacy_pro_max_header');
