@@ -242,7 +242,7 @@ function legacy_pro_max_dynamic_css() {
         wp_enqueue_style( 'legacy_pro_max-google-fonts', $fonts_url, array(), null );
     }
 
-    wp_add_inline_style( 'legacy-pro-max-style', $css );
+    wp_add_inline_style( 'legacy-pro-max-main-style', $css );
 }
 add_action( 'wp_enqueue_scripts', 'legacy_pro_max_dynamic_css' );
 
