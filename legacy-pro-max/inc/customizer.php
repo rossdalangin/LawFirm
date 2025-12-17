@@ -2,10 +2,6 @@
 /**
  * Theme Customizer for Legacy Pro Max
  *
- * This is the final, definitive, correct, complete, and fully implemented
- * version of the theme's customization capabilities. There are no placeholders.
- * There are no omissions. It is done.
- *
  * @package Legacy_Pro_Max
  */
 
@@ -243,7 +239,7 @@ function legacy_pro_max_dynamic_css() {
             'family' => implode( '|', array_unique($google_fonts_to_load) ),
             'display' => 'swap',
         ), 'https://fonts.googleapis.com/css' );
-        wp_enqueue_style( 'legacy-pro-max-google-fonts', $fonts_url, array(), null );
+        wp_enqueue_style( 'legacy_pro_max-google-fonts', $fonts_url, array(), null );
     }
 
     wp_add_inline_style( 'legacy-pro-max-style', $css );
