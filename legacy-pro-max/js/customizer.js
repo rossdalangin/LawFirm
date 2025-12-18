@@ -8,7 +8,17 @@
 
 ( function( $ ) {
 
-	// ... (existing code for site title, description, etc.)
+	// Site title and description.
+	wp.customize( 'blogname', function( value ) {
+		value.bind( function( to ) {
+			$( '.site-branding .site-title a' ).text( to );
+		} );
+	} );
+	wp.customize( 'blogdescription', function( value ) {
+		value.bind( function( to ) {
+			$( '.site-branding .site-description' ).text( to );
+		} );
+	} );
 
 	// -------------------------------------------------------------------------- //
 	//                           Homepage Sections                                //
@@ -60,7 +70,7 @@
             var overlayOpacity = wp.customize( prefix + '_background_overlay_opacity' ).get();
 
             // Basic RGBA parsing
-            var rgba = overlayColor.match(/\\d+/g);
+            var rgba = overlayColor.match(/\d+/g);
             if (rgba && rgba.length >= 3) {
                  css += sectionClass + '::before { background-color: rgba(' + rgba[0] + ',' + rgba[1] + ',' + rgba[2] + ',' + overlayOpacity + '); }';
             } else {
