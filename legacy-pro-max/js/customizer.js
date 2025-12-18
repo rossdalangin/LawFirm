@@ -21,12 +21,25 @@
 	} );
 
 	// -------------------------------------------------------------------------- //
-	//                           Homepage Sections                                //
+	//                           Helper Functions                                 //
 	// -------------------------------------------------------------------------- //
+
+	// Helper function for simple text/html updates.
+	function bindSimpleUpdate( settingId, selector, isHtml ) {
+		wp.customize( settingId, function( value ) {
+			value.bind( function( to ) {
+				if ( isHtml ) {
+					$( selector ).html( to );
+				} else {
+					$( selector ).text( to );
+				}
+			} );
+		} );
+	}
 
 	// Helper function to update background
 	function updateSectionBackground( sectionClass, prefix ) {
-		var type = wp.customize( prefix + '_background_type' ).get();
+		var type = wp.customize( prefix + '_background_type' ) ? wp.customize( prefix + '_background_type' ).get() : 'color';
 		var $section = $( sectionClass );
         var $styleTag = $( '#legacy-pro-max-' + prefix + '-styles' );
 
@@ -43,9 +56,7 @@
             'background': 'none'
         } );
 
-        // Remove video wrapper if it exists
         $section.find('.background-video-wrapper').remove();
-
 
 		if ( 'color' === type ) {
 			$section.css( 'background-color', wp.customize( prefix + '_background_color' ).get() );
@@ -69,12 +80,13 @@
             var overlayColor = wp.customize( prefix + '_background_overlay_color' ).get();
             var overlayOpacity = wp.customize( prefix + '_background_overlay_opacity' ).get();
 
-            // Basic RGBA parsing
-            var rgba = overlayColor.match(/\d+/g);
-            if (rgba && rgba.length >= 3) {
-                 css += sectionClass + '::before { background-color: rgba(' + rgba[0] + ',' + rgba[1] + ',' + rgba[2] + ',' + overlayOpacity + '); }';
-            } else {
-                 css += sectionClass + '::before { background-color: ' + overlayColor + '; opacity: ' + overlayOpacity + '; }'; // Fallback
+            if (overlayColor) {
+                var rgba = overlayColor.match(/\d+/g);
+                if (rgba && rgba.length >= 3) {
+                     css += sectionClass + '::before { background-color: rgba(' + rgba[0] + ',' + rgba[1] + ',' + rgba[2] + ',' + overlayOpacity + '); }';
+                } else {
+                     css += sectionClass + '::before { background-color: ' + overlayColor + '; opacity: ' + overlayOpacity + '; }'; // Fallback
+                }
             }
         } else {
             css += sectionClass + '::before { background-color: transparent; }';
@@ -83,11 +95,15 @@
         $styleTag.html(css);
 	}
 
+	// -------------------------------------------------------------------------- //
+	//                           Configuration Object                             //
+	// -------------------------------------------------------------------------- //
+
 	var elements = {
         'header': {
             selector: '.site-header',
             typography: [
-                { key: 'site_title', selector: '.site-title a' },
+                { key: 'site_title', selector: '.site-branding .site-title a' },
                 { key: 'navigation', selector: '.main-navigation a' }
             ]
         },
@@ -95,11 +111,16 @@
             selector: '.site-footer',
             typography: [
                 { key: 'widget_title', selector: '.site-footer .widget-title' },
-                { key: 'text', selector: '.site-footer' }
+                { key: 'text', selector: '.site-footer, .site-footer a, .site-footer .site-info' }
             ]
         },
         'hero': {
             selector: '.homepage-section--hero',
+			content: [
+				{ key: 'headline', selector: '.homepage-section--hero h1' },
+				{ key: 'subheading', selector: '.homepage-section--hero p' },
+				{ key: 'button_text', selector: '.homepage-section--hero .button' },
+			],
             typography: [
                 { key: 'headline', selector: '.homepage-section--hero h1' },
                 { key: 'text', selector: '.homepage-section--hero p' }
@@ -107,41 +128,50 @@
         },
         'practice_areas': {
             selector: '.homepage-section--practice-areas',
+			content: [ { key: 'headline', selector: '.homepage-section--practice-areas h2' } ],
             typography: [
                 { key: 'headline', selector: '.homepage-section--practice-areas h2' },
-                { key: 'text', selector: '.homepage-section--practice-areas p' }
+                { key: 'text', selector: '.homepage-section--practice-areas .practice-area-item h3, .homepage-section--practice-areas .practice-area-item p' }
             ]
         },
          'attorneys': {
             selector: '.homepage-section--attorneys',
+			content: [ { key: 'headline', selector: '.homepage-section--attorneys h2' } ],
             typography: [
                 { key: 'headline', selector: '.homepage-section--attorneys h2' },
-                { key: 'text', selector: '.homepage-section--attorneys .attorney-title' }
+                { key: 'text', selector: '.homepage-section--attorneys .attorney-item h3, .homepage-section--attorneys .attorney-item .attorney-title' }
             ]
         },
         'case_results': {
             selector: '.homepage-section--case-results',
+			content: [ { key: 'headline', selector: '.homepage-section--case-results h2' } ],
             typography: [
                 { key: 'headline', selector: '.homepage-section--case-results h2' },
-                { key: 'text', selector: '.homepage-section--case-results .case-result-amount' }
+                { key: 'text', selector: '.homepage-section--case-results .case-result-item h4, .homepage-section--case-results .case-result-item .case-result-amount' }
             ]
         },
         'testimonials': {
             selector: '.homepage-section--testimonials',
+			content: [ { key: 'headline', selector: '.homepage-section--testimonials h2' } ],
             typography: [
                 { key: 'headline', selector: '.homepage-section--testimonials h2' },
-                { key: 'text', selector: '.homepage-section--testimonials blockquote' }
+                { key: 'text', selector: '.homepage-section--testimonials blockquote, .homepage-section--testimonials cite' }
             ]
         },
         'cta': {
             selector: '.homepage-section--cta',
+			content: [
+				{ key: 'headline', selector: '.homepage-section--cta h2' },
+				{ key: 'button_text', selector: '.homepage-section--cta .button' },
+			],
             typography: [
                 { key: 'headline', selector: '.homepage-section--cta h2' },
-                { key: 'text', selector: '.homepage-section--cta a.button' }
+                { key: 'text', selector: '.homepage-section--cta .button' }
             ]
         },
         'contact': {
             selector: '.homepage-section--contact',
+			content: [ { key: 'headline', selector: '.homepage-section--contact h2' } ],
             typography: [
                 { key: 'headline', selector: '.homepage-section--contact h2' },
                 { key: 'text', selector: '.homepage-section--contact .contact-form' }
@@ -149,44 +179,46 @@
         }
     };
 
+	// -------------------------------------------------------------------------- //
+	//                           Component Bindings                               //
+	// -------------------------------------------------------------------------- //
+
     // Button Styles
     wp.customize('legacy_pro_max_button_bg_color', function(value) {
-        value.bind(function(newVal) {
-            $('.button, input[type="submit"]').css('background-color', newVal);
-        });
+        value.bind(function(newVal) { $('.button, input[type="submit"]').css('background-color', newVal); });
     });
     wp.customize('legacy_pro_max_button_text_color', function(value) {
-        value.bind(function(newVal) {
-            $('.button, input[type="submit"]').css('color', newVal);
-        });
+        value.bind(function(newVal) { $('.button, input[type="submit"]').css('color', newVal); });
     });
     wp.customize('legacy_pro_max_button_border_radius', function(value) {
-        value.bind(function(newVal) {
-            $('.button, input[type="submit"]').css('border-radius', newVal);
-        });
+        value.bind(function(newVal) { $('.button, input[type="submit"]').css('border-radius', newVal); });
     });
 
     // Attorney Card Styles
     wp.customize('legacy_pro_max_attorney_card_bg_color', function(value) {
-        value.bind(function(newVal) {
-            $('.attorney-item').css('background-color', newVal);
-        });
+        value.bind(function(newVal) { $('.attorney-item').css('background-color', newVal); });
     });
     wp.customize('legacy_pro_max_attorney_card_border_color', function(value) {
-        value.bind(function(newVal) {
-            $('.attorney-item').css('border-color', newVal);
-        });
+        value.bind(function(newVal) { $('.attorney-item').css('border-color', newVal); });
     });
      wp.customize('legacy_pro_max_attorney_card_box_shadow', function(value) {
-        value.bind(function(newVal) {
-            $('.attorney-item').css('box-shadow', newVal);
-        });
+        value.bind(function(newVal) { $('.attorney-item').css('box-shadow', newVal); });
     });
 
+	// -------------------------------------------------------------------------- //
+	//                           Main Loop for Bindings                           //
+	// -------------------------------------------------------------------------- //
 
 	for ( var key in elements ) {
 		var prefix = 'legacy_pro_max_' + key;
 		var selector = elements[key].selector;
+
+        // Content Controls
+        if (elements[key].content) {
+            elements[key].content.forEach(function(item) {
+                bindSimpleUpdate(prefix + '_' + item.key, item.selector);
+            });
+        }
 
         // Typography Controls
         if (elements[key].typography) {
@@ -198,10 +230,10 @@
                      wp.customize(typo_prefix + '_' + prop, function(value) {
                         value.bind(function(newVal) {
                             if (prop === 'font_family') {
-                                // Need to load Google Fonts dynamically for the preview
                                 var fontUrl = 'https://fonts.googleapis.com/css?family=' + newVal.replace(/ /g, '+') + ':400,700';
-                                if ($('#legacy-pro-max-preview-font-' + newVal.replace(/ /g, '-')).length === 0) {
-                                    $('head').append('<link id="legacy-pro-max-preview-font-' + newVal.replace(/ /g, '-') + '" rel="stylesheet" type="text/css" href="' + fontUrl + '">');
+                                var fontId = 'legacy-pro-max-preview-font-' + newVal.replace(/ /g, '-');
+                                if ($('#' + fontId).length === 0) {
+                                    $('head').append('<link id="' + fontId + '" rel="stylesheet" type="text/css" href="' + fontUrl + '">');
                                 }
                                 $(typo_selector).css('font-family', newVal);
                             } else {
@@ -222,19 +254,13 @@
             });
         });
 
-		// Background Controls (existing logic)
+		// Background Controls
 		[
-			prefix + '_background_type',
-			prefix + '_background_color',
-			prefix + '_gradient_color_1',
-			prefix + '_gradient_color_2',
-			prefix + '_gradient_direction',
-			prefix + '_background_image',
-            prefix + '_background_video',
-            prefix + '_background_overlay_color',
-            prefix + '_background_overlay_opacity'
-		].forEach( function( setting ) {
-			wp.customize( setting, function( value ) {
+			'_background_type', '_background_color', '_gradient_color_1', '_gradient_color_2',
+			'_gradient_direction', '_background_image', '_background_video',
+            '_background_overlay_color', '_background_overlay_opacity'
+		].forEach( function( suffix ) {
+			wp.customize( prefix + suffix, function( value ) {
 				value.bind( function( to ) {
 					updateSectionBackground( selector, prefix );
 				} );
