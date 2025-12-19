@@ -170,7 +170,7 @@ function legacy_pro_max_add_typography_controls( $wp_customize, $section_id, $se
     )));
 
     // Font Family
-    $wp_customize->add_setting( $setting_prefix . '_font_family', ['default' => 'helvetica-neue', 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage']);
+    $wp_customize->add_setting( $setting_prefix . '_font_family', ['default' => 'roboto', 'sanitize_callback' => 'sanitize_text_field', 'transport' => 'postMessage']);
     $wp_customize->add_control( $setting_prefix . '_font_family', ['label' => 'Font Family', 'section' => $section_id, 'type' => 'select', 'choices' => $google_fonts]);
 
     // Font Size
@@ -287,10 +287,13 @@ function legacy_pro_max_generate_spacing_css($selector, $prefix) {
 
 function legacy_pro_max_generate_typography_css($selector, $prefix, &$fonts_to_load) {
     $css = '';
-    $font_family = get_theme_mod("{$prefix}_font_family", 'helvetica-neue');
+    $font_slug = get_theme_mod("{$prefix}_font_family", 'roboto');
     $font_size = get_theme_mod("{$prefix}_font_size", '16px');
     $font_weight = get_theme_mod("{$prefix}_font_weight", '400');
     $color = get_theme_mod("{$prefix}_color", '#333333');
+
+    $fonts = legacy_pro_max_get_google_fonts();
+    $font_family = isset($fonts[$font_slug]) ? $fonts[$font_slug] : 'Roboto';
 
     $css .= "{$selector} {";
     $css .= "font-family: '{$font_family}', sans-serif;";
@@ -299,15 +302,18 @@ function legacy_pro_max_generate_typography_css($selector, $prefix, &$fonts_to_l
     $css .= "color: {$color};";
     $css .= '}';
 
-    if ( !in_array($font_family, ['helvetica-neue', 'arial', 'verdana', 'georgia', 'times-new-roman']) ) {
-         $fonts_to_load[] = $font_family . ':' . $font_weight;
+    if ( !in_array($font_slug, ['helvetica-neue', 'arial', 'verdana', 'georgia', 'times-new-roman']) ) {
+         $fonts_to_load[] = str_replace(' ', '+', $font_family) . ':' . $font_weight;
     }
 
     return $css;
 }
 
 function legacy_pro_max_customize_preview_js() {
-	wp_enqueue_script( 'legacy-pro-max-customizer-preview', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview', 'jquery' ), null, true );
+	wp_enqueue_script( 'legacy-pro-max-customizer-preview', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview', 'jquery' ), '2.0.0', true );
+
+    // Pass the font map to the javascript file.
+    wp_localize_script( 'legacy-pro-max-customizer-preview', 'lpmFonts', legacy_pro_max_get_google_fonts() );
 }
 add_action( 'customize_preview_init', 'legacy_pro_max_customize_preview_js' );
 

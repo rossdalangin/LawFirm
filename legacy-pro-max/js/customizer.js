@@ -2,8 +2,6 @@
  * File customizer.js.
  *
  * Theme Customizer enhancements for a better user experience.
- *
- * Contains handlers to make Theme Customizer preview reload changes asynchronously.
  */
 
 ( function( $ ) {
@@ -17,6 +15,19 @@
 	}
     function bindCss( settingId, selector, property ) {
         wp.customize( settingId, function( value ) { value.bind( function( to ) { $( selector ).css( property, to ); } ); } );
+    }
+    function bindFontFamily( settingId, selector ) {
+        wp.customize( settingId, function( value ) {
+            value.bind( function( to ) {
+                var fontName = lpmFonts[to] || 'Roboto'; // Get font name from localized map
+                var fontUrl = 'https://fonts.googleapis.com/css?family=' + fontName.replace(/ /g, '+') + ':400,700';
+                var fontId = 'legacy-pro-max-preview-font-' + to;
+                if ($('#' + fontId).length === 0) {
+                    $('head').append('<link id="' + fontId + '" rel="stylesheet" type="text/css" href="' + fontUrl + '">');
+                }
+                $(selector).css('font-family', fontName);
+            } );
+        } );
     }
 
 	// -------------------------------------------------------------------------- //
@@ -42,16 +53,16 @@
 	// -------------------------------------------------------------------------- //
 	//                           Header                                           //
 	// -------------------------------------------------------------------------- //
-    // Spacing
     bindCss( 'legacy_pro_max_header_padding_top', '.site-header', 'padding-top' );
     bindCss( 'legacy_pro_max_header_padding_bottom', '.site-header', 'padding-bottom' );
-    // Typography
     bindCss( 'legacy_pro_max_header_site_title_color', '.site-branding .site-title a', 'color' );
     bindCss( 'legacy_pro_max_header_site_title_font_size', '.site-branding .site-title a', 'font-size' );
     bindCss( 'legacy_pro_max_header_site_title_font_weight', '.site-branding .site-title a', 'font-weight' );
+    bindFontFamily( 'legacy_pro_max_header_site_title_font_family', '.site-branding .site-title a' );
     bindCss( 'legacy_pro_max_header_navigation_color', '.main-navigation a', 'color' );
     bindCss( 'legacy_pro_max_header_navigation_font_size', '.main-navigation a', 'font-size' );
     bindCss( 'legacy_pro_max_header_navigation_font_weight', '.main-navigation a', 'font-weight' );
+    bindFontFamily( 'legacy_pro_max_header_navigation_font_family', '.main-navigation a' );
 
 	// -------------------------------------------------------------------------- //
 	//                           Footer                                           //
@@ -59,7 +70,13 @@
     bindCss( 'legacy_pro_max_footer_padding_top', '.site-footer', 'padding-top' );
     bindCss( 'legacy_pro_max_footer_padding_bottom', '.site-footer', 'padding-bottom' );
     bindCss( 'legacy_pro_max_footer_widget_title_color', '.site-footer .widget-title', 'color' );
+    bindCss( 'legacy_pro_max_footer_widget_title_font_size', '.site-footer .widget-title', 'font-size' );
+    bindCss( 'legacy_pro_max_footer_widget_title_font_weight', '.site-footer .widget-title', 'font-weight' );
+    bindFontFamily( 'legacy_pro_max_footer_widget_title_font_family', '.site-footer .widget-title' );
     bindCss( 'legacy_pro_max_footer_text_color', '.site-footer, .site-footer a', 'color' );
+    bindCss( 'legacy_pro_max_footer_text_font_size', '.site-footer, .site-footer a', 'font-size' );
+    bindCss( 'legacy_pro_max_footer_text_font_weight', '.site-footer, .site-footer a', 'font-weight' );
+    bindFontFamily( 'legacy_pro_max_footer_text_font_family', '.site-footer, .site-footer a' );
 
 	// -------------------------------------------------------------------------- //
 	//                           Section: Hero                                    //
@@ -71,13 +88,17 @@
     bindCss( 'legacy_pro_max_hero_padding_bottom', '.homepage-section--hero', 'padding-bottom' );
     bindCss( 'legacy_pro_max_hero_headline_color', '.homepage-section--hero h1', 'color' );
     bindCss( 'legacy_pro_max_hero_headline_font_size', '.homepage-section--hero h1', 'font-size' );
+    bindCss( 'legacy_pro_max_hero_headline_font_weight', '.homepage-section--hero h1', 'font-weight' );
+    bindFontFamily( 'legacy_pro_max_hero_headline_font_family', '.homepage-section--hero h1' );
     bindCss( 'legacy_pro_max_hero_text_color', '.homepage-section--hero p', 'color' );
     bindCss( 'legacy_pro_max_hero_text_font_size', '.homepage-section--hero p', 'font-size' );
+    bindCss( 'legacy_pro_max_hero_text_font_weight', '.homepage-section--hero p', 'font-weight' );
+    bindFontFamily( 'legacy_pro_max_hero_text_font_family', '.homepage-section--hero p' );
+
 
 	// -------------------------------------------------------------------------- //
 	//                        Backgrounds (Special Handling)                      //
 	// -------------------------------------------------------------------------- //
-    // This part remains complex, but is now isolated.
     var backgroundSections = [ 'header', 'footer', 'hero', 'practice_areas', 'attorneys', 'case_results', 'testimonials', 'cta', 'contact' ];
 
     backgroundSections.forEach(function(section) {
