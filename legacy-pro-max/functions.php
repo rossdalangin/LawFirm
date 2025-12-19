@@ -23,6 +23,7 @@ function legacy_pro_max_setup() {
 	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' ) );
 	add_theme_support( 'custom-logo', array( 'height' => 100, 'width' => 400, 'flex-width' => true, 'flex-height' => true ) );
 	register_nav_menus( array( 'primary' => esc_html__( 'Primary Menu', 'legacy-pro-max' ) ) );
+    remove_theme_support( 'core-block-patterns' );
 }
 add_action( 'after_setup_theme', 'legacy_pro_max_setup' );
 
